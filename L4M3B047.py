@@ -1,10 +1,10 @@
 import socket 
 from random import choice
 
-def getnick(text):
+def getnick(text, tag):
     words = text.split()
     for i, w in enumerate(words):
-        if w == '!insult':
+        if w == tag:
             return words[i+1]
 
 
@@ -15,13 +15,13 @@ def commands(botnick, nick,channel,message):
       ircsock.send('PRIVMSG %s :%s: L4M3B047 sez hallo!\r\n' % (channel,nick))
    elif message.find('!insult ')!=-1:
         insults = [line.strip() for line in open('insults.txt')]
-        nicktoinsult = getnick(message)
+        nicktoinsult = getnick(message, '!insult')
         ircsock.send('PRIVMSG %s :%s: %s \r\n' % (channel,nicktoinsult, choice(insults)))
    elif message.find(botnick+': help')!=-1:
       ircsock.send('PRIVMSG %s :%s: L0L. Vehla nai hun\r\n' % (channel,nick))
    elif message.find('insult')!=-1:
         insults = [line.strip() for line in open('insults.txt')]
-        nicktoinsult = getnick(message, 5)
+        nicktoinsult = getnick(message, '!insult')
         ircsock.send('PRIVMSG %s :%s: %s \r\n' % (channel,nicktoinsult, choice(insults)))
    else:
         elizalines = [line.strip() for line in open('eliza.txt')]
